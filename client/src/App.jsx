@@ -1,7 +1,8 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { CampaignDetails, Home, Profile, CreateCampaign } from "./pages";
-import { Sidebar, Navbar } from "./components";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+
+import { Sidebar, Navbar } from './components';
+import { CampaignDetails, CreateCampaign, Home, Profile } from './pages';
 
 const App = () => {
   return (
@@ -10,21 +11,18 @@ const App = () => {
         <Sidebar />
       </div>
 
-      <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
-       
-          <Navbar />
-       
-       
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/create-campaign" element={<CreateCampaign />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/campaign-details/:id" element={<CampaignDetails />} />
-          </Routes>
-        
+      <div className="flex-1 justify-between max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/create-campaign" element={<CreateCampaign />} />
+          <Route path="/campaign-details/:id" element={<CampaignDetails />} />
+        </Routes>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
