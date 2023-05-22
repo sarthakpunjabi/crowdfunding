@@ -9,11 +9,10 @@ const FundCard = ({
   target,
   deadline,
   amountCollected,
-  remainingDays,
   image,
   handleClick,
 }) => {
-  const reaminingDays = daysLeft(deadline);
+  const remainingDays = daysLeft(deadline);
   return (
     <div
       className="w-full sm:w-[288px] rounded-[15px] bg-[#1c1c24] cursor-pointer"
