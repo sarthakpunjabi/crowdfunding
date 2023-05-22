@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
+
+import { useStateContext } from "../context";
+
 import { money } from "../assets";
 import { CustomButton, FormField } from "../components";
 import { checkIfImage } from "../utils";
@@ -8,6 +11,7 @@ import { checkIfImage } from "../utils";
 const CreateCampaign = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const { createCampaign } = useStateContext();
   const [form, setForm] = useState({
     name: "",
     title: "",
@@ -21,9 +25,23 @@ const CreateCampaign = () => {
     setForm({ ...form, [fieldName]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+
+    checkIfImage(form.image , async (exists) => {
+      if(exists) {
+        setIsLoading(true)
+        await createCampaign({ ...form, target:ethers.utils.parseUnits(form.target,2)})
+        setIsLoading(false);
+        navigate('/')
+      } else {
+        alert('Provide valid Image URL')
+        setForm({ ...form,image:'' });
+      }
+
+    })
+    console.log(form)
+
   };
 
   return (
@@ -72,7 +90,7 @@ const CreateCampaign = () => {
             className="w-[40px] h-[40px] object-contain"
           />
           <h4 className="font-epilogue font-bold text-[25px] text-white ml-[20px] ">
-            You will get !00% of the raised amount
+            You will get 100% of the raised amount
           </h4>
         </div>
         <div className="flex flex-wrap gap-[40px]">
